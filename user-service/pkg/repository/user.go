@@ -28,19 +28,18 @@ func (u *userDB) IsUserAlreadyExistWithThisEmail(ctx context.Context, email stri
 	return
 }
 
-func (u *userDB) SaveUser(ctx context.Context, user domain.User) (userID uint32, err error) {
+func (u *userDB) SaveUser(ctx context.Context, user domain.User) (domain.User, error) {
 
 	query := `INSERT INTO users (first_name, last_name, email, password, created_at) 
-	VALUES($1, $2, $3, $4, $5) RETURNING id AS user_id`
+	VALUES($1, $2, $3, $4, $5) RETURNING *`
 
 	createdAt := time.Now()
-	err = u.db.Raw(query, user.FirstName, user.LastName, user.Email, user.Password, createdAt).
-		Scan(&userID).Error
+	err := u.db.Raw(query, user.FirstName, user.LastName, user.Email, user.Password, createdAt).Scan(&user).Error
 
-	return
+	return user, err
 }
 
-func (u *userDB) FindUserByID(ctx context.Context, id uint) (user domain.User, err error) {
+func (u *userDB) FindUserByID(ctx context.Context, id uint32) (user domain.User, err error) {
 
 	query := `SELECT first_name, last_name, phone, password, created_at, updated_at 
 	FROM users WHERE id = $1`

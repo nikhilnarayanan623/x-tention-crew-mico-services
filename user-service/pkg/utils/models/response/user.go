@@ -1,5 +1,12 @@
 package response
 
-type AccountCreated struct {
-	UserID uint32 `json:"user_id"`
+import "time"
+
+type User struct {
+	ID        uint32
+	FirstName string
+	LastName  string
+	Email     string
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }

@@ -4,13 +4,18 @@ import "github.com/spf13/viper"
 
 type Config struct {
 	UserServiceRestPort string `mapstructure:"USER_SERVICE_REST_PORT"`
+
 	UserServiceGrpcHost string `mapstructure:"USER_SERVICE_GRPC_HOST"`
 	UserServiceGrpcPort string `mapstructure:"USER_SERVICE_GRPC_PORT"`
-	DBHost              string `mapstructure:"USER_DB_HOST"`
-	DBPort              string `mapstructure:"USER_DB_PORT"`
-	DBUser              string `mapstructure:"USER_DB_USER"`
-	DBPassword          string `mapstructure:"USER_DB_PASSWORD"`
-	DBName              string `mapstructure:"USER_DB_NAME"`
+
+	DBHost     string `mapstructure:"USER_DB_HOST"`
+	DBPort     string `mapstructure:"USER_DB_PORT"`
+	DBUser     string `mapstructure:"USER_DB_USER"`
+	DBPassword string `mapstructure:"USER_DB_PASSWORD"`
+	DBName     string `mapstructure:"USER_DB_NAME"`
+
+	RedisHost string `mapstructure:"REDIS_HOST"`
+	RedisPort string `mapstructure:"REDIS_PORT"`
 }
 
 var envs = []string{

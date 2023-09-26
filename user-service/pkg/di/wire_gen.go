@@ -24,7 +24,8 @@ func InitializeAPI(cfg config.Config) (*api.Server, error) {
 		return nil, err
 	}
 	userRepo := repository.NewUserRepo(gormDB)
-	userUseCase := usecase.NewAuthUseCase(userRepo)
+	cacheRepo := repository.NewCacheRepo(cfg)
+	userUseCase := usecase.NewAuthUseCase(userRepo, cacheRepo)
 	userServiceServer := service.NewUserService(userUseCase)
 	userHandler := handler.NewUserHandler(userUseCase)
 	server, err := api.NewServer(cfg, userServiceServer, userHandler)

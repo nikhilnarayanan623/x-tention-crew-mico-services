@@ -31,7 +31,7 @@ func (u *userHandler) CreateAccount(ctx *gin.Context) {
 		return
 	}
 	// create user account
-	userID, err := u.usecase.CreateAccount(ctx, body)
+	user, err := u.usecase.CreateAccount(ctx, body)
 	if err != nil {
 		response := response.ErrorResponse("failed to create account", err)
 		statusCode := http.StatusInternalServerError
@@ -43,10 +43,7 @@ func (u *userHandler) CreateAccount(ctx *gin.Context) {
 		return
 	}
 
-	res := response.AccountCreated{
-		UserID: userID,
-	}
-	response := response.SuccessResponse("successfully account created", res)
+	response := response.SuccessResponse("successfully account created", user)
 
 	ctx.JSON(http.StatusCreated, response)
 }

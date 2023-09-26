@@ -19,6 +19,7 @@ func InitializeAPI(cfg config.Config) (*api.Server, error) {
 	wire.Build(
 		db.ConnectToDatabase,
 		repository.NewUserRepo,
+		repository.NewCacheRepo,
 		usecase.NewAuthUseCase,
 		service.NewUserService,
 		handler.NewUserHandler,
