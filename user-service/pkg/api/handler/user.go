@@ -1,7 +1,9 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/nikhilnarayanan623/x-tention-crew/pkg/api/handler/interfaces"
@@ -49,10 +51,44 @@ func (u *userHandler) CreateAccount(ctx *gin.Context) {
 }
 func (u *userHandler) GetAccount(ctx *gin.Context) {
 
+	userID, err := getParamAsUint(ctx, "userId")
+	if err != nil {
+		response := response.ErrorResponse("failed to get user id from params as int", err)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	user, err := u.usecase.GetAccount(ctx, userID)
+	if err != nil {
+		response := response.ErrorResponse("failed to create account", err)
+		statusCode := http.StatusInternalServerError
+		// check if error is user not exis
+		if err == usecase.ErrUserNotExist {
+			statusCode = http.StatusNotFound
+		}
+		ctx.JSON(statusCode, response)
+		return
+	}
+
+	response := response.SuccessResponse("successfully found user account", user)
+	ctx.JSON(http.StatusOK, response)
 }
 func (u *userHandler) UpdateAccount(ctx *gin.Context) {
 
 }
 func (u *userHandler) RemoveAccount(ctx *gin.Context) {
 
+}
+
+// get path params as uint from request url
+func getParamAsUint(ctx *gin.Context, key string) (uint32, error) {
+
+	param := ctx.Param(key)
+	value, err := strconv.ParseUint(param, 10, 32)
+
+	if err != nil || value == 0 {
+		return 0, fmt.Errorf("failed to get %s from param as int", key)
+	}
+
+	return uint32(value), nil
 }

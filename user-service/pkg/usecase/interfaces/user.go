@@ -9,4 +9,5 @@ import (
 
 type UserUseCase interface {
 	CreateAccount(ctx context.Context, signUpDetails request.User) (response.User, error)
+	GetAccount(ctx context.Context, userID uint32) (response.User, error)
 }
