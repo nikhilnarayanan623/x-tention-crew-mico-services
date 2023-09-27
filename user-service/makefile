@@ -9,3 +9,6 @@ proto:
 
 wire:
 	cd pkg/di && wire
+
+docker-build:
+	docker build -t github.com/nikhilnarayanan623/x-tention-crew/user-servcie .

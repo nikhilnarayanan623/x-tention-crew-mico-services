@@ -22,6 +22,7 @@ var envs = []string{
 	"USER_DB_HOST", "USER_DB_PORT", "USER_DB_USER", "USER_DB_PASSWORD", "USER_DB_NAME",
 	"USER_SERVICE_REST_PORT",
 	"USER_SERVICE_GRPC_PORT", "USER_SERVICE_GRPC_HOST",
+	"REDIS_HOST", "REDIS_PORT",
 }
 
 func LoadConfig() (config Config, err error) {
