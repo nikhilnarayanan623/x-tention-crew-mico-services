@@ -157,6 +157,22 @@ func (u *userUseCase) UpdateAccount(ctx context.Context, userID uint32, updateDe
 	return resUser, nil
 }
 
+func (u *userUseCase) DeleteUser(ctx context.Context, userID uint32) error {
+
+	// first remove user details from redis cache
+	// because if we removed from db and failed to remove from cache service cause a data inconsistency
+	key := userIDToKey(userID)
+	if err := u.cacheRepo.Del(ctx, key); err != nil {
+		return utils.PrependMessageToError(err, "failed to delete user details from cache repo")
+	}
+
+	if err := u.userRepo.DeleteUser(ctx, userID); err != nil {
+		return utils.PrependMessageToError(err, "failed to delete user account from db")
+	}
+
+	return nil
+}
+
 // save any data to cache store by converting the data to json string(byte array)
 func (u *userUseCase) saveDataToCacheRepo(key string, data interface{}) {
 	jsonData, err := json.Marshal(data)

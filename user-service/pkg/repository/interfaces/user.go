@@ -11,4 +11,5 @@ type UserRepo interface {
 	FindUserByID(ctx context.Context, id uint32) (domain.User, error)
 	SaveUser(ctx context.Context, user domain.User) (domain.User, error)
 	UpdateUser(ctx context.Context, user domain.User) (domain.User, error)
+	DeleteUser(ctx context.Context, userID uint32) error
 }

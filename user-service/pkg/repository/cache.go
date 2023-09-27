@@ -44,3 +44,8 @@ func (c *redisDB) Get(ctx context.Context, key string) ([]byte, error) {
 
 	return []byte(result), nil
 }
+
+func (c *redisDB) Del(ctx context.Context, key string) error {
+
+	return c.client.Del(key).Err()
+}

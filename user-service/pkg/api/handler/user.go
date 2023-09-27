@@ -102,6 +102,22 @@ func (u *userHandler) UpdateAccount(ctx *gin.Context) {
 }
 func (u *userHandler) RemoveAccount(ctx *gin.Context) {
 
+	userID, err := getParamAsUint(ctx, "userId")
+	if err != nil {
+		response := response.ErrorResponse("failed to get user id from params as int", err)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	err = u.usecase.DeleteUser(ctx, userID)
+	if err != nil {
+		response := response.ErrorResponse("failed to delete user account", err)
+		ctx.JSON(http.StatusInternalServerError, response)
+		return
+	}
+
+	response := response.SuccessResponse("successfully account deleted", nil)
+	ctx.JSON(http.StatusOK, response)
 }
 
 // get path params as uint from request url
