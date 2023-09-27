@@ -12,4 +12,6 @@ type UserUseCase interface {
 	GetAccount(ctx context.Context, userID uint32) (response.User, error)
 	UpdateAccount(ctx context.Context, userID uint32, updateDetails request.User) (response.User, error)
 	DeleteUser(ctx context.Context, userID uint32) error
+
+	FindAllUsersNameAndCount(ctx context.Context) (response.AllUsers, error)
 }

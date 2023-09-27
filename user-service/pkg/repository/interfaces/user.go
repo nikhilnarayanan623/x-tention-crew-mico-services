@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/nikhilnarayanan623/x-tention-crew/pkg/domain"
+	"github.com/nikhilnarayanan623/x-tention-crew/pkg/utils/models/response"
 )
 
 type UserRepo interface {
@@ -13,4 +14,5 @@ type UserRepo interface {
 	SaveUser(ctx context.Context, user domain.User) (domain.User, error)
 	UpdateUser(ctx context.Context, user domain.User) (domain.User, error)
 	DeleteUser(ctx context.Context, userID uint32) error
+	FindAllUsersNameAndCount(ctx context.Context)(response.AllUsers,error)
 }

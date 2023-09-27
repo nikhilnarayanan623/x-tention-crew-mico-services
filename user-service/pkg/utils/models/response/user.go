@@ -10,3 +10,8 @@ type User struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
+
+type AllUsers struct {
+	Count uint64
+	Names []string
+}
