@@ -10,4 +10,5 @@ func RegisterRoutes(api *gin.RouterGroup, userHandler interfaces.UserHandler) {
 	api.POST("/user", userHandler.CreateAccount)
 	api.GET("/user/:userId", userHandler.GetAccount)
 	api.PUT("/user/:userId", userHandler.UpdateAccount)
+	api.DELETE("/user/:userId", userHandler.RemoveAccount)
 }

@@ -93,7 +93,12 @@ func (u *userHandler) UpdateAccount(ctx *gin.Context) {
 	user, err := u.usecase.UpdateAccount(ctx, userID, body)
 	if err != nil {
 		response := response.ErrorResponse("failed to update user details", err)
-		ctx.JSON(http.StatusInternalServerError, response)
+		statusCode := http.StatusInternalServerError
+		// check if error is user not exist
+		if err == usecase.ErrUserNotExist {
+			statusCode = http.StatusNotFound
+		}
+		ctx.JSON(statusCode, response)
 		return
 	}
 
@@ -102,6 +107,27 @@ func (u *userHandler) UpdateAccount(ctx *gin.Context) {
 }
 func (u *userHandler) RemoveAccount(ctx *gin.Context) {
 
+	userID, err := getParamAsUint(ctx, "userId")
+	if err != nil {
+		response := response.ErrorResponse("failed to get user id from params as int", err)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	err = u.usecase.DeleteUser(ctx, userID)
+	if err != nil {
+		response := response.ErrorResponse("failed to delete user account", err)
+		statusCode := http.StatusInternalServerError
+		// check if error is user not exist
+		if err == usecase.ErrUserNotExist {
+			statusCode = http.StatusNotFound
+		}
+		ctx.JSON(statusCode, response)
+		return
+	}
+
+	response := response.SuccessResponse("successfully account deleted", nil)
+	ctx.JSON(http.StatusOK, response)
 }
 
 // get path params as uint from request url
