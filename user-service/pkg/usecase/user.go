@@ -20,7 +20,10 @@ const (
 	cacheDuration = 2 * time.Hour
 )
 
-var ErrUserAlreadyExist = errors.New("user already exist with given credentials")
+var (
+	ErrUserAlreadyExist = errors.New("user already exist with given credentials")
+	ErrUserNotExist     = errors.New("user not exist with given user id")
+)
 
 type userUseCase struct {
 	userRepo  repo.UserRepo
@@ -79,6 +82,49 @@ func (u *userUseCase) CreateAccount(ctx context.Context, signUpDetails request.U
 	go u.saveDataToCacheRepo(key, resUser)
 
 	return resUser, nil
+}
+
+func (u *userUseCase) GetAccount(ctx context.Context, userID uint32) (response.User, error) {
+
+	// first check the user on cache repo
+	key := userIDToKey(userID)
+	jsonData, err := u.cacheRepo.Get(ctx, key)
+	// no error means data found from cache
+	if err == nil {
+		var user response.User
+		// if no error to unmarshal json data to user then return the user
+		if err = json.Unmarshal(jsonData, &user); err == nil {
+			fmt.Println("data from cache")
+			return user, nil
+		}
+		log.Println("failed to unmarshal cache data to response.User: ", err)
+	}
+
+	user, err := u.userRepo.FindUserByID(ctx, userID)
+	if err != nil {
+		return response.User{}, utils.PrependMessageToError(err, "failed to get user from database")
+	}
+
+	// if user not exist with given user id
+	if user.ID == 0 {
+		return response.User{}, ErrUserNotExist
+	}
+
+	// save user to cache repo
+	resUser := response.User{
+		ID:        user.ID,
+		FirstName: user.FirstName,
+		LastName:  user.LastName,
+		Email:     user.Email,
+		CreatedAt: user.CreatedAt,
+		UpdatedAt: user.UpdatedAt,
+	}
+
+	// run save data on cache repo in another goroutine to avoid the time delay
+	go u.saveDataToCacheRepo(key, resUser)
+
+	return resUser, nil
+
 }
 
 // save any data to cache store by converting the data to json string(byte array)
