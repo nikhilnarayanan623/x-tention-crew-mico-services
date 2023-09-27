@@ -11,4 +11,4 @@ wire:
 	cd pkg/di && wire
 
 docker-build:
-	docker build -t nikhil382/x-tention-crew/service2 .
+	docker build -t nikhil382/x-tention-crew-service2 .
