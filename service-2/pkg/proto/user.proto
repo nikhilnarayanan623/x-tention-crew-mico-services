@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package proto;
+option go_package="./pkg/pb";
+
+
+service UserService{
+    rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
+}
+
+message GetUsersRequest {
+
+}
+
+message GetUsersResponse{
+    uint64 user_count = 1;
+    repeated string names = 2;
+}
