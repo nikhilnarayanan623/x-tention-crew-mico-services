@@ -3,8 +3,8 @@ package interfaces
 import (
 	"context"
 
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/domain"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/utils/models/response"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/domain"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/utils/models/response"
 )
 
 type UserRepo interface {

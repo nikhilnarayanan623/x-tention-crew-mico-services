@@ -7,13 +7,13 @@
 package di
 
 import (
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/api"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/api/handler"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/api/service"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/config"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/db"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/repository"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/usecase"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/api"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/api/handler"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/api/service"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/config"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/db"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/repository"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/usecase"
 )
 
 // Injectors from wire.go:

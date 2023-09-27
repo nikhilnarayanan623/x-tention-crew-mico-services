@@ -6,11 +6,11 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/api/handler/interfaces"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/usecase"
-	usecaseinterface "github.com/nikhilnarayanan623/x-tention-crew/pkg/usecase/interfaces"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/utils/models/request"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/utils/models/response"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/api/handler/interfaces"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/usecase"
+	usecaseinterface "github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/usecase/interfaces"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/utils/models/request"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/utils/models/response"
 )
 
 type userHandler struct {

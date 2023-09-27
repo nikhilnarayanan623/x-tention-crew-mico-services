@@ -8,12 +8,12 @@ import (
 	"log"
 	"time"
 
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/domain"
-	repo "github.com/nikhilnarayanan623/x-tention-crew/pkg/repository/interfaces"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/usecase/interfaces"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/utils"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/utils/models/request"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/utils/models/response"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/domain"
+	repo "github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/repository/interfaces"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/usecase/interfaces"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/utils"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/utils/models/request"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/utils/models/response"
 )
 
 const (

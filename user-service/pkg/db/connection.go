@@ -3,8 +3,8 @@ package db
 import (
 	"fmt"
 
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/config"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/domain"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/config"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/domain"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

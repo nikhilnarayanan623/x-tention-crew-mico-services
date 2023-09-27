@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/domain"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/repository/interfaces"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/utils/models/response"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/domain"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/repository/interfaces"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/utils/models/response"
 	"gorm.io/gorm"
 )
 

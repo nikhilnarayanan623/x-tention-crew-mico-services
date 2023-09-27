@@ -6,11 +6,11 @@ import (
 	"net"
 
 	"github.com/gin-gonic/gin"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/api/handler/interfaces"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/api/routes"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/config"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/pb"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/utils"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/api/handler/interfaces"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/api/routes"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/config"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/pb"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/utils"
 	"google.golang.org/grpc"
 )
 

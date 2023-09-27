@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/go-redis/redis"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/config"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/repository/interfaces"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/config"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/repository/interfaces"
 )
 
 type redisDB struct {

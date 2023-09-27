@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/pb"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/usecase/interfaces"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/pb"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/usecase/interfaces"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
