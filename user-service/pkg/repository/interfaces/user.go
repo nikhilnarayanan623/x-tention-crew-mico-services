@@ -8,6 +8,7 @@ import (
 
 type UserRepo interface {
 	IsUserAlreadyExistWithThisEmail(ctx context.Context, email string) (exist bool, err error)
-	SaveUser(ctx context.Context, user domain.User) (domain.User, error)
 	FindUserByID(ctx context.Context, id uint32) (domain.User, error)
+	SaveUser(ctx context.Context, user domain.User) (domain.User, error)
+	UpdateUser(ctx context.Context, user domain.User) (domain.User, error)
 }

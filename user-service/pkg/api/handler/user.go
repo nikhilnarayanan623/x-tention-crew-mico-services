@@ -75,6 +75,30 @@ func (u *userHandler) GetAccount(ctx *gin.Context) {
 }
 func (u *userHandler) UpdateAccount(ctx *gin.Context) {
 
+	userID, err := getParamAsUint(ctx, "userId")
+	if err != nil {
+		response := response.ErrorResponse("failed to get user id from params as int", err)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	var body request.User
+	// bind input from request body
+	if err := ctx.ShouldBindJSON(&body); err != nil {
+		response := response.ErrorResponse("failed to bind input", err)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	user, err := u.usecase.UpdateAccount(ctx, userID, body)
+	if err != nil {
+		response := response.ErrorResponse("failed to update user details", err)
+		ctx.JSON(http.StatusInternalServerError, response)
+		return
+	}
+
+	response := response.SuccessResponse("successfully user details updated", user)
+	ctx.JSON(http.StatusOK, response)
 }
 func (u *userHandler) RemoveAccount(ctx *gin.Context) {
 
