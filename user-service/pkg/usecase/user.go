@@ -86,6 +86,16 @@ func (u *userUseCase) CreateAccount(ctx context.Context, signUpDetails request.U
 
 func (u *userUseCase) GetAccount(ctx context.Context, userID uint32) (response.User, error) {
 
+	// check user exist or not by validating the user id // doing it authentication not implemented
+	exist, err := u.userRepo.IsUserExist(ctx, userID)
+	if err != nil {
+		return response.User{}, utils.PrependMessageToError(err, "failed to check user is exist on db")
+	}
+	// check if not exist
+	if !exist {
+		return response.User{}, ErrUserNotExist
+	}
+
 	// first check the user on cache repo
 	key := userIDToKey(userID)
 	jsonData, err := u.cacheRepo.Get(ctx, key)
@@ -129,6 +139,16 @@ func (u *userUseCase) GetAccount(ctx context.Context, userID uint32) (response.U
 
 func (u *userUseCase) UpdateAccount(ctx context.Context, userID uint32, updateDetails request.User) (response.User, error) {
 
+	// check user exist or not by validating the user id // doing it authentication not implemented
+	exist, err := u.userRepo.IsUserExist(ctx, userID)
+	if err != nil {
+		return response.User{}, utils.PrependMessageToError(err, "failed to check user is exist on db")
+	}
+	// check if not exist
+	if !exist {
+		return response.User{}, ErrUserNotExist
+	}
+
 	user := domain.User{
 		ID:        userID,
 		FirstName: updateDetails.FirstName,
@@ -137,7 +157,7 @@ func (u *userUseCase) UpdateAccount(ctx context.Context, userID uint32, updateDe
 		Password:  updateDetails.Password,
 	}
 	// update user
-	user, err := u.userRepo.UpdateUser(ctx, user)
+	user, err = u.userRepo.UpdateUser(ctx, user)
 	if err != nil {
 		return response.User{}, utils.PrependMessageToError(err, "failed to update user details on db")
 	}
@@ -158,6 +178,16 @@ func (u *userUseCase) UpdateAccount(ctx context.Context, userID uint32, updateDe
 }
 
 func (u *userUseCase) DeleteUser(ctx context.Context, userID uint32) error {
+
+	// check user exist or not by validating the user id // doing it authentication not implemented
+	exist, err := u.userRepo.IsUserExist(ctx, userID)
+	if err != nil {
+		return utils.PrependMessageToError(err, "failed to check user is exist on db")
+	}
+	// check if not exist
+	if !exist {
+		return ErrUserNotExist
+	}
 
 	// first remove user details from redis cache
 	// because if we removed from db and failed to remove from cache service cause a data inconsistency

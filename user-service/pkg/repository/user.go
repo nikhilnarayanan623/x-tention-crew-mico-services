@@ -67,3 +67,12 @@ func (u *userDB) DeleteUser(ctx context.Context, userID uint32) error {
 
 	return u.db.Exec(query, userID).Error
 }
+
+func (u *userDB) IsUserExist(ctx context.Context, userID uint32) (exist bool, err error) {
+
+	query := `SELECT EXISTS( SELECT 1 FROM users WHERE id = $1 )`
+
+	err = u.db.Raw(query, userID).Scan(&exist).Error
+
+	return
+}

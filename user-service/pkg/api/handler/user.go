@@ -93,7 +93,12 @@ func (u *userHandler) UpdateAccount(ctx *gin.Context) {
 	user, err := u.usecase.UpdateAccount(ctx, userID, body)
 	if err != nil {
 		response := response.ErrorResponse("failed to update user details", err)
-		ctx.JSON(http.StatusInternalServerError, response)
+		statusCode := http.StatusInternalServerError
+		// check if error is user not exist
+		if err == usecase.ErrUserNotExist {
+			statusCode = http.StatusNotFound
+		}
+		ctx.JSON(statusCode, response)
 		return
 	}
 
@@ -112,7 +117,12 @@ func (u *userHandler) RemoveAccount(ctx *gin.Context) {
 	err = u.usecase.DeleteUser(ctx, userID)
 	if err != nil {
 		response := response.ErrorResponse("failed to delete user account", err)
-		ctx.JSON(http.StatusInternalServerError, response)
+		statusCode := http.StatusInternalServerError
+		// check if error is user not exist
+		if err == usecase.ErrUserNotExist {
+			statusCode = http.StatusNotFound
+		}
+		ctx.JSON(statusCode, response)
 		return
 	}
 
