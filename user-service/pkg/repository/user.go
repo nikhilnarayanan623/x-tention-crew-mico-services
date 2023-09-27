@@ -41,7 +41,7 @@ func (u *userDB) SaveUser(ctx context.Context, user domain.User) (domain.User, e
 
 func (u *userDB) FindUserByID(ctx context.Context, id uint32) (user domain.User, err error) {
 
-	query := `SELECT id, first_name, last_name, password, created_at, updated_at 
+	query := `SELECT id, first_name, last_name, email, password, created_at, updated_at 
 	FROM users WHERE id = $1`
 
 	err = u.db.Raw(query, id).Scan(&user).Error
