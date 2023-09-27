@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/config"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/di"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/config"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/di"
 )
 
 func main() {

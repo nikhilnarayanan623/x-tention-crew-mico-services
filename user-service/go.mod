@@ -1,4 +1,4 @@
-module github.com/nikhilnarayanan623/x-tention-crew
+module github.com/nikhilnarayanan623/x-tention-crew/user-servcie
 
 go 1.21.0
 

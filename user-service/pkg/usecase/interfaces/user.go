@@ -3,8 +3,8 @@ package interfaces
 import (
 	"context"
 
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/utils/models/request"
-	"github.com/nikhilnarayanan623/x-tention-crew/pkg/utils/models/response"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/utils/models/request"
+	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/utils/models/response"
 )
 
 type UserUseCase interface {
