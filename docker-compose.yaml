@@ -1,0 +1,66 @@
+version: '3.8'
+services:
+# database container
+  postgresdb:
+    image: postgres
+    env_file:
+      - .env
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks:
+      - my-network
+# redis container
+  redisdb:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - redis:/var/lib/redis
+      - redis-config:/usr/local/etc/redis/redis.conf
+    restart: always
+    networks:
+      - my-network
+
+# service 1
+  app1:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    image:  github.com/nikhilnarayanan623/x-tention-crew/user-servcie
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    depends_on:
+      - postgresdb
+      - redisdb
+    restart: always
+    networks:
+      - my-network
+
+# service 2
+  app2:
+    build:
+      context: ./service-2
+      dockerfile: Dockerfile
+    image: github.com/nikhilnarayanan623/x-tention-crew/service2
+    ports:
+      - 8001:8001
+    env_file:
+      - .env
+    depends_on:
+      - app1
+    restart: always
+    networks:
+      - my-network
+
+# for persistent data storage
+volumes:
+  database:
+  redis:
+  redis-config:
+
+
+networks:
+  my-network:
+    driver: bridge
