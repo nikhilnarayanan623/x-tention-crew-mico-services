@@ -48,3 +48,15 @@ func (u *userDB) FindUserByID(ctx context.Context, id uint32) (user domain.User,
 
 	return
 }
+
+func (u *userDB) UpdateUser(ctx context.Context, user domain.User) (domain.User, error) {
+
+	query := `UPDATE users SET first_name = $1, last_name = $2 , email = $3 , password = $4, updated_at = $5  
+	WHERE id = $6 RETURNING *`
+
+	updatedAt := time.Now()
+	err := u.db.Raw(query, user.FirstName, user.LastName, user.Email,
+		user.Password, updatedAt, user.ID).Scan(&user).Error
+
+	return user, err
+}

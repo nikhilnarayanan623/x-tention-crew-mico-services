@@ -127,6 +127,36 @@ func (u *userUseCase) GetAccount(ctx context.Context, userID uint32) (response.U
 
 }
 
+func (u *userUseCase) UpdateAccount(ctx context.Context, userID uint32, updateDetails request.User) (response.User, error) {
+
+	user := domain.User{
+		ID:        userID,
+		FirstName: updateDetails.FirstName,
+		LastName:  updateDetails.LastName,
+		Email:     updateDetails.Email,
+		Password:  updateDetails.Password,
+	}
+	// update user
+	user, err := u.userRepo.UpdateUser(ctx, user)
+	if err != nil {
+		return response.User{}, utils.PrependMessageToError(err, "failed to update user details on db")
+	}
+
+	// update user on cache
+	key := userIDToKey(userID)
+	resUser := response.User{
+		ID:        userID,
+		FirstName: user.FirstName,
+		LastName:  user.LastName,
+		Email:     user.Email,
+		CreatedAt: user.CreatedAt,
+		UpdatedAt: user.UpdatedAt,
+	}
+	go u.saveDataToCacheRepo(key, resUser)
+
+	return resUser, nil
+}
+
 // save any data to cache store by converting the data to json string(byte array)
 func (u *userUseCase) saveDataToCacheRepo(key string, data interface{}) {
 	jsonData, err := json.Marshal(data)
