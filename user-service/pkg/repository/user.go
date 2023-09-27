@@ -6,6 +6,7 @@ import (
 
 	"github.com/nikhilnarayanan623/x-tention-crew/pkg/domain"
 	"github.com/nikhilnarayanan623/x-tention-crew/pkg/repository/interfaces"
+	"github.com/nikhilnarayanan623/x-tention-crew/pkg/utils/models/response"
 	"gorm.io/gorm"
 )
 
@@ -75,4 +76,31 @@ func (u *userDB) IsUserExist(ctx context.Context, userID uint32) (exist bool, er
 	err = u.db.Raw(query, userID).Scan(&exist).Error
 
 	return
+}
+
+func (u *userDB) FindAllUsersNameAndCount(ctx context.Context) (response.AllUsers, error) {
+
+	var (
+		names []string
+		count uint64
+	)
+
+	getCountQuery := `SELECT COUNT(id) AS count FROM users`
+	getAllUsersQuery := `SELECT first_name AS names FROM users`
+
+	err := u.db.Raw(getCountQuery).Scan(&count).Error
+	if err != nil {
+		return response.AllUsers{}, err
+	}
+
+	err = u.db.Raw(getAllUsersQuery).Scan(&names).Error
+
+	if err != nil {
+		return response.AllUsers{}, err
+	}
+
+	return response.AllUsers{
+		Count: count,
+		Names: names,
+	}, nil
 }

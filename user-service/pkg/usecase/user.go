@@ -203,6 +203,15 @@ func (u *userUseCase) DeleteUser(ctx context.Context, userID uint32) error {
 	return nil
 }
 
+func (u *userUseCase) FindAllUsersNameAndCount(ctx context.Context) (response.AllUsers, error) {
+
+	allUsers, err := u.userRepo.FindAllUsersNameAndCount(ctx)
+	if err != nil {
+		return response.AllUsers{}, utils.PrependMessageToError(err, "failed to get all users details from db")
+	}
+	return allUsers, nil
+}
+
 // save any data to cache store by converting the data to json string(byte array)
 func (u *userUseCase) saveDataToCacheRepo(key string, data interface{}) {
 	jsonData, err := json.Marshal(data)
