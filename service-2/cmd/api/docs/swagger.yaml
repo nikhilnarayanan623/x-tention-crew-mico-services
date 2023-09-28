@@ -1,0 +1,64 @@
+definitions:
+  models.AllUserDetails:
+    properties:
+      count:
+        type: integer
+      names:
+        items:
+          type: string
+        type: array
+    type: object
+  models.MethodType:
+    properties:
+      method:
+        description: only accepting 1 or 2
+        maximum: 2
+        minimum: 1
+        type: integer
+      waitTime:
+        type: integer
+    type: object
+  response.Response:
+    properties:
+      data: {}
+      error: {}
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+info:
+  contact: {}
+paths:
+  /user:
+    get:
+      operationId: Method
+      parameters:
+      - description: Details
+        in: body
+        name: inputs
+        required: true
+        schema:
+          $ref: '#/definitions/models.MethodType'
+      responses:
+        "200":
+          description: successfully found all user details
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.AllUserDetails'
+              type: object
+        "400":
+          description: failed to bind input; method:'1 or 2'
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: failed to get user details
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: Method
+      tags:
+      - User
+swagger: "2.0"

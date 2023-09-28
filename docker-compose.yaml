@@ -5,8 +5,6 @@ services:
     image: postgres
     env_file:
       - .env
-    volumes:
-      - database:/var/lib/postgresql/data
     networks:
       - my-network
 # redis container
@@ -56,7 +54,6 @@ services:
 
 # for persistent data storage
 volumes:
-  database:
   redis:
   redis-config:
 
