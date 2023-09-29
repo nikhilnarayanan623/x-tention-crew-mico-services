@@ -6,12 +6,16 @@ import (
 	"net"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/nikhilnarayanan623/x-tention-crew/user-servcie/cmd/api/docs"
 	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/api/handler/interfaces"
 	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/api/routes"
 	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/config"
 	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/pb"
 	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/utils"
 	"google.golang.org/grpc"
+
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 const (
@@ -32,6 +36,9 @@ func NewServer(cfg config.Config,
 	// register rest server
 	engine := gin.New()
 	engine.Use(gin.Logger())
+
+	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+
 	// register all REST api routes
 	routes.RegisterRoutes(engine.Group(basePath), userHandler)
 

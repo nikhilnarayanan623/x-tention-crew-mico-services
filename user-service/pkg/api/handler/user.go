@@ -23,6 +23,15 @@ func NewUserHandler(uc usecaseinterface.UserUseCase) interfaces.UserHandler {
 	}
 }
 
+// @Summary		Create Account
+// @Description	API for create account
+// @Id				CreateAccount
+// @Tags			User
+// @Param			inputs	body	request.User{}	true	"User Details"
+// @Router			/user [post]
+// @Success		200	{object}	response.Response{data=response.User}	"Successfully logged in"
+// @Failure		400	{object}	response.Response{}								"failed to bind input"
+// @Failure		409	{object}	response.Response{}								"user already exist"
 func (u *userHandler) CreateAccount(ctx *gin.Context) {
 
 	var body request.User
@@ -49,6 +58,17 @@ func (u *userHandler) CreateAccount(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusCreated, response)
 }
+
+// @Summary		Get Account
+// @Description	API for GetAccount
+// @Id				GetAccount
+// @Tags			User
+// @Param			userId	path	int	true	"User ID"
+// @Router			/user [get]
+// @Success		200	{object}	response.Response{data=response.User}	"successfully found user account"
+// @Failure		400	{object}	response.Response{}								"failed to get user id from params as int"
+// @Failure		404	{object}	response.Response{}								"user not exist"
+// @Failure		500	{object}	response.Response{}								"failed to get account"
 func (u *userHandler) GetAccount(ctx *gin.Context) {
 
 	userID, err := getParamAsUint(ctx, "userId")
@@ -60,9 +80,9 @@ func (u *userHandler) GetAccount(ctx *gin.Context) {
 
 	user, err := u.usecase.GetAccount(ctx, userID)
 	if err != nil {
-		response := response.ErrorResponse("failed to create account", err)
+		response := response.ErrorResponse("failed to get account", err)
 		statusCode := http.StatusInternalServerError
-		// check if error is user not exis
+		// check if error is user not exist
 		if err == usecase.ErrUserNotExist {
 			statusCode = http.StatusNotFound
 		}
@@ -73,6 +93,18 @@ func (u *userHandler) GetAccount(ctx *gin.Context) {
 	response := response.SuccessResponse("successfully found user account", user)
 	ctx.JSON(http.StatusOK, response)
 }
+
+// @Summary		Update Account
+// @Description	API for UpdateAccount
+// @Id				UpdateAccount
+// @Tags			User
+// @Param			userId	path	int	true	"User ID"
+// @Param			inputs	body	request.User{}	true	"User Details"
+// @Router			/user [put]
+// @Success		200	{object}	response.Response{}	"successfully user details updated"
+// @Failure		400	{object}	response.Response{}								"failed to bind input"
+// @Failure		404	{object}	response.Response{}								"user not exist"
+// @Failure		500	{object}	response.Response{}								"failed to update user details"
 func (u *userHandler) UpdateAccount(ctx *gin.Context) {
 
 	userID, err := getParamAsUint(ctx, "userId")
@@ -105,6 +137,17 @@ func (u *userHandler) UpdateAccount(ctx *gin.Context) {
 	response := response.SuccessResponse("successfully user details updated", user)
 	ctx.JSON(http.StatusOK, response)
 }
+
+// @Summary		Remove Account
+// @Description	API for RemoveAccount
+// @Id				RemoveAccount
+// @Tags			User
+// @Param			userId	path	int	true	"User ID"
+// @Router			/user [delete]
+// @Success		200	{object}	response.Response{}	"successfully user details updated"
+// @Failure		400	{object}	response.Response{}								"failed to get user id from params as int"
+// @Failure		404	{object}	response.Response{}								"user not exist"
+// @Failure		500	{object}	response.Response{}								"failed to delete user account"
 func (u *userHandler) RemoveAccount(ctx *gin.Context) {
 
 	userID, err := getParamAsUint(ctx, "userId")

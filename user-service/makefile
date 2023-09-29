@@ -12,3 +12,6 @@ wire:
 
 docker-build:
 	docker build -t nikhil382/x-tention-crew-user-service .
+
+swag:
+	swag init -g pkg/api/server.go -o ./cmd/api/docs
