@@ -2,13 +2,17 @@
 
 # To Run Project
 
-## Clone the repository
+#### Clone The Repository
 ```
 git clone https://github.com/nikhilnarayanan623/x-tention-crew-mico-services
 ```
-### Run using docker-compose
+#### Checkout To Project Directory
+```
+cd ./x-tention-crew-mico-services
+```
+## Run using docker-compose
 
-##### Setup env for docker-compose (look up the .env.example for you refference)
+##### Setup env for docker-compose (look up the .env.example for your refference)
 ```.env
 #example
 SERVICE2_REST_PORT="8001"
