@@ -24,7 +24,7 @@ func NewHandler(uc usecaseinterface.UseCase) interfaces.ServiceHandler {
 // @Id				Method
 // @Tags			User
 // @Param			inputs	body	models.MethodType{}	true	"Details"
-// @Router			/user [get]
+// @Router			/user [post]
 // @Success		200	{object}	response.Response{data=models.AllUserDetails}	"successfully found all user details"
 // @Failure		400	{object}	response.Response{}								"failed to bind input; method:'1 or 2'""
 // @Failure		500	{object}	response.Response{}								"failed to get user details"
