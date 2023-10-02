@@ -22,11 +22,11 @@ services:
 # service 1
   app1:
     build:
-      context: ./user-service
+      context: ./service-2
       dockerfile: Dockerfile
     image:  nikhil382/x-tention-crew-user-service
     ports:
-      - 8000:8000
+      - ${USER_SERVICE_REST_PORT}:${USER_SERVICE_REST_PORT}
     env_file:
       - .env
     depends_on:
@@ -43,7 +43,7 @@ services:
       dockerfile: Dockerfile
     image: nikhil382/x-tention-crew-service2
     ports:
-      - 8001:8001
+      - ${SERVICE2_REST_PORT}:${SERVICE2_REST_PORT}
     env_file:
       - .env
     depends_on:
