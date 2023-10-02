@@ -12,7 +12,8 @@ cd ./x-tention-crew-mico-services
 ```
 ## Run using docker-compose
 
-##### Setup env for docker-compose (look up the .env.example for your refference)
+##### Setup env file for docker-compose (look up the .env.example for your reference)
+create .env file on the project root dir and add the below envs on it
 ```.env
 #example
 SERVICE2_REST_PORT="8001"
@@ -34,7 +35,7 @@ POSTGRES_USER="myuser"
 POSTGRES_PASSWORD="password"
 POSTGRES_DB="mydb"
 ```
-##### Run Docker Containers
+#### Run Docker Containers
 ```
 docker compose up
 ```
