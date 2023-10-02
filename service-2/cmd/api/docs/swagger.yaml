@@ -1,3 +1,4 @@
+basePath: /api
 definitions:
   models.AllUserDetails:
     properties:
@@ -31,7 +32,7 @@ info:
   contact: {}
 paths:
   /user:
-    get:
+    post:
       operationId: Method
       parameters:
       - description: Details

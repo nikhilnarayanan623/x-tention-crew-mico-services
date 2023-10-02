@@ -6,7 +6,7 @@ import (
 	"net"
 
 	"github.com/gin-gonic/gin"
-	_ "github.com/nikhilnarayanan623/x-tention-crew/user-servcie/cmd/api/docs"
+	docs "github.com/nikhilnarayanan623/x-tention-crew/user-servcie/cmd/api/docs"
 	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/api/handler/interfaces"
 	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/api/routes"
 	"github.com/nikhilnarayanan623/x-tention-crew/user-servcie/pkg/config"
@@ -37,6 +37,7 @@ func NewServer(cfg config.Config,
 	engine := gin.New()
 	engine.Use(gin.Logger())
 
+	docs.SwaggerInfo.BasePath = "/api"
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	// register all REST api routes

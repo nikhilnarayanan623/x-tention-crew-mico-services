@@ -4,7 +4,7 @@ import (
 	"net"
 
 	"github.com/gin-gonic/gin"
-	_ "github.com/nikhilnarayanan623/x-tention-crew/service2/cmd/api/docs"
+	docs "github.com/nikhilnarayanan623/x-tention-crew/service2/cmd/api/docs"
 	"github.com/nikhilnarayanan623/x-tention-crew/service2/pkg/api/handler/interfaces"
 	"github.com/nikhilnarayanan623/x-tention-crew/service2/pkg/api/routes"
 	"github.com/nikhilnarayanan623/x-tention-crew/service2/pkg/config"
@@ -26,11 +26,16 @@ type Server struct {
 	ls         net.Listener
 }
 
+// @Name						Service-2
+// @BasePath					/api
+// @Query.collection.format	multi
 func NewServer(cfg config.Config, serviceHandler interfaces.ServiceHandler) (*Server, error) {
 
 	// register rest server
 	engine := gin.New()
 	engine.Use(gin.Logger())
+
+	docs.SwaggerInfo.BasePath = "/api"
 
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 

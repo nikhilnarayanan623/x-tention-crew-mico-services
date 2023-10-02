@@ -3,9 +3,10 @@
     "info": {
         "contact": {}
     },
+    "basePath": "/api",
     "paths": {
         "/user": {
-            "get": {
+            "post": {
                 "tags": [
                     "User"
                 ],
